@@ -15,8 +15,30 @@ class Firebase {
         this.db = firebase.firestore()
         this.storage = firebase.storage()
     }
-    getAlluser() {
-        return admin.auth().listUsers(1000)
+    async getAlluser(branchid) {
+        try{
+            var users = ''
+            await admin.firestore().collection('Users').get().then(async(querySnapshot) => {
+                await querySnapshot.forEach((doc) => {
+                    if(doc.data().branchstore === branchid){
+                        users = doc.id
+                    }
+                });
+            });
+            const userList = []
+            await admin.auth().listUsers(1000).then(async(user)=>{
+                await user.users.forEach((doc) => {
+                    if(doc.uid === users){
+                        userList.push(doc)
+                    }
+                });
+            })
+            return userList
+        }
+        catch(e){
+            console.log(e)
+            return []
+        }
     }
     generateToken(uid) {
         const token = admin.auth().createCustomToken(uid)

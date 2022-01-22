@@ -13,9 +13,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
-app.get('/AllUser', async function(req, res, next) {
+app.post('/AllUser', async function(req, res, next) {
   try{
-    const alluser = await firebase.getAlluser();
+    const branchid = req.body.branchid;
+    const alluser = await firebase.getAlluser(branchid);
     res.status(200).json(alluser);  
   }
   catch(e){
