@@ -13,9 +13,33 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
-app.get('/AllUser', async function(req, res, next) {
+app.post('/AddUser', async function(req, res, next) {
   try{
-    const alluser = await firebase.getAlluser();
+    const email = req.body.email;
+    const password = req.body.password;
+    const branchId = req.body.branchId;
+    const alluser = await firebase.AddUser(email,password,branchId);
+    console.log(alluser)
+    res.status(200).json(alluser);  
+  }
+  catch(e){
+    res.status(200).json(e);  
+  }
+});
+app.post('/DeleteUser', async function(req, res, next) {
+  try{
+    const uid = req.body.uid;
+    const alluser = await firebase.DeleteUser(uid);
+    res.status(200).json(alluser);  
+  }
+  catch(e){
+    res.status(200).json(e);  
+  }
+});
+app.post('/AllUser', async function(req, res, next) {
+  try{
+    const branchid = req.body.branchid;
+    const alluser = await firebase.getAlluser(branchid);
     res.status(200).json(alluser);  
   }
   catch(e){
