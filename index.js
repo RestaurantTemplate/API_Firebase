@@ -13,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   res.send('Hello World 111')
 })
+app.get('/test', (req, res) => {
+  res.send('Hello World 111')
+})
 app.post('/AddUser', async function(req, res, next) {
   try{
     const email = req.body.email;
