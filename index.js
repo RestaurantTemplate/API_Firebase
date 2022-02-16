@@ -6,7 +6,7 @@ const Firebase = require('./firebase/config.js')
 const firebase = new Firebase();
 const cors = require('cors')
 const app = express()
-const PORT = process.env.POST || 9000
+const PORT = process.env.PORT || 9000
 app.use(bodyParser.json())
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
