@@ -6,7 +6,7 @@ const Firebase = require('./firebase/config.js')
 const firebase = new Firebase();
 const cors = require('cors')
 const app = express()
-
+const port = process.env.POST || 9000
 app.use(bodyParser.json())
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -60,6 +60,6 @@ app.post('/token', async function(req, res, next) {
   }
 });
 
-app.listen(process.env.POST, () => {
+app.listen(port, () => {
   console.log('Start server at port 9000.')
 })
