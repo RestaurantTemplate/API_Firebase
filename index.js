@@ -57,6 +57,6 @@ app.post('/token', async function(req, res, next) {
   }
 });
 
-app.listen(9000, () => {
+app.listen(process.env.POST || 9000, () => {
   console.log('Start server at port 9000.')
 })
