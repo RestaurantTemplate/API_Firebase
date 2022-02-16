@@ -1,5 +1,5 @@
 const express = require('express')
-
+const path = require('path')
 const bodyParser = require('body-parser')
 
 const Firebase = require('./firebase/config.js')
@@ -10,6 +10,7 @@ const port = process.env.POST || 9000
 app.use(bodyParser.json())
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.send('Hello World 111')
 })
